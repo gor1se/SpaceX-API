@@ -334,7 +334,7 @@ const refreshVariables = () => {
     optionMissionName = document.querySelector("#option-mission-name");
     missionCards = document.querySelectorAll(".flight-card");
     options.forEach(option => {
-        option.addEventListener("change", () => {
+        option.addEventListener("input", () => {
             if (Object.keys(flightsData).length !== 0) {
                 filter();
             }
