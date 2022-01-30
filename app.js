@@ -201,7 +201,6 @@ const mobileHeaderDecreasedHTML = () => {
             mobileHeaderExpandedHTML();
         });
     document.querySelector(".header-mobile").classList.remove("open");
-    refreshVariables();
 };
 
 const mobileHeaderExpandedHTML = () => {
@@ -209,7 +208,7 @@ const mobileHeaderExpandedHTML = () => {
     document.querySelector(".header-mobile").innerHTML = `            <input
                 type="text"
                 id="option-mission-name"
-                class="option"
+                class="option-text"
                 placeholder="Mission name"
             />
             <select name="" class="option" id="option-rocket-type">
@@ -263,7 +262,7 @@ const defaultHeaderHTML = () => {
     document.querySelector(".header-default").innerHTML = `<input
                 type="text"
                 id="option-mission-name"
-                class="option"
+                class="option-text"
                 placeholder="Mission name"
             />
             <select name="" class="option" id="option-rocket-type">
@@ -340,6 +339,11 @@ const refreshVariables = () => {
                 filter();
             }
         });
+    });
+    document.querySelector(".option-text").addEventListener("keyup", () => {
+        if (Object.keys(flightsData).length !== 0) {
+            filter();
+        }
     });
 };
 
