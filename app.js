@@ -7,20 +7,59 @@ let optionManned = document.querySelector("#option-manned");
 let optionSuccess = document.querySelector("#option-success");
 let optionMissionName = document.querySelector("#option-mission-name");
 let missionCards = document.querySelectorAll(".flight-card");
-// const mobileButton = document.querySelector(".mobile-button");
-// const mobileContent = document.querySelector(".mobile-content");
 
 // btn.addEventListener("click", getData);
 
-/*
-flight.launch_year
-flight.launch_date_local
-flight.launch_date_unix
-flight.launch_success
-flight.rocket.rocket_id
-flight.rocket.rocket_name
-flight.crew
-*/
+const headerHTML = `<input
+                type="text"
+                id="option-mission-name"
+                class="option-text"
+                placeholder="Mission name (all)"
+            />
+            <select name="" class="option" id="option-rocket-type">
+                <option value="">Rocket type (all)</option>
+                <option value="Falcon 1">Falcon 1</option>
+                <option value="Falcon 9">Falcon 9</option>
+                <option value="Falcon Heavy">Falcon Heavy</option>
+            </select>
+            <select name="" class="option" id="option-launch-year">
+                <option value="">Launch Year (all)</option>
+                <option value="2006">2006</option>
+                <option value="2007">2007</option>
+                <option value="2008">2008</option>
+                <option value="2009">2009</option>
+                <option value="2010">2010</option>
+                <option value="2011">2011</option>
+                <option value="2012">2012</option>
+                <option value="2013">2013</option>
+                <option value="2014">2014</option>
+                <option value="2015">2015</option>
+                <option value="2016">2016</option>
+                <option value="2017">2017</option>
+                <option value="2018">2018</option>
+                <option value="2019">2019</option>
+                <option value="2020">2020</option>
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+            </select>
+            <select name="" class="option" id="option-success">
+                <option value="">Success (all)</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>
+            <select name="" class="option" id="option-manned">
+                <option value="">Crew (all)</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>`;
+
+let optionsSelected = {
+    selectedMissionName: "",
+    selectedRocketType: "",
+    selectedLaunchYear: "",
+    selectedMissionSucces: "",
+    selectedMissionCrew: "",
+};
 
 let flightsData = {};
 
@@ -205,104 +244,23 @@ const mobileHeaderDecreasedHTML = () => {
 
 const mobileHeaderExpandedHTML = () => {
     document.querySelector(".header-default").innerHTML = "";
-    document.querySelector(".header-mobile").innerHTML = `            <input
-                type="text"
-                id="option-mission-name"
-                class="option-text"
-                placeholder="Mission name"
-            />
-            <select name="" class="option" id="option-rocket-type">
-                <option value="" selected>Rocket type (all)</option>
-                <option value="Falcon 1">Falcon 1</option>
-                <option value="Falcon 9">Falcon 9</option>
-                <option value="Falcon Heavy">Falcon Heavy</option>
-            </select>
-            <select name="" class="option" id="option-launch-year">
-                <option value="" selected>Launch Year (all)</option>
-                <option value="2006">2006</option>
-                <option value="2007">2007</option>
-                <option value="2008">2008</option>
-                <option value="2009">2009</option>
-                <option value="2010">2010</option>
-                <option value="2011">2011</option>
-                <option value="2012">2012</option>
-                <option value="2013">2013</option>
-                <option value="2014">2014</option>
-                <option value="2015">2015</option>
-                <option value="2016">2016</option>
-                <option value="2017">2017</option>
-                <option value="2018">2018</option>
-                <option value="2019">2019</option>
-                <option value="2020">2020</option>
-                <option value="2021">2021</option>
-                <option value="2022">2022</option>
-            </select>
-            <select name="" class="option" id="option-success">
-                <option value="" selected>Success (all)</option>
-                <option value="true">Yes</option>
-                <option value="false">No</option>
-            </select>
-            <select name="" class="option" id="option-manned">
-                <option value="" selected>Crew (all)</option>
-                <option value="true">Yes</option>
-                <option value="false">No</option>
-            </select>
+    document.querySelector(".header-mobile").innerHTML = `${headerHTML}
             <img src="./img/Hamburger.png" class="mobile-button" alt="" />`;
     document
         .querySelector(".mobile-button")
         .addEventListener("click", event => {
+            selectCorrect();
             mobileHeaderDecreasedHTML();
         });
     document.querySelector(".header-mobile").classList.add("open");
     refreshVariables();
+    activateSelection();
 };
 
 const defaultHeaderHTML = () => {
     document.querySelector(".header-mobile").innerHTML = "";
-    document.querySelector(".header-default").innerHTML = `<input
-                type="text"
-                id="option-mission-name"
-                class="option-text"
-                placeholder="Mission name"
-            />
-            <select name="" class="option" id="option-rocket-type">
-                <option value="" selected>Rocket type (all)</option>
-                <option value="Falcon 1">Falcon 1</option>
-                <option value="Falcon 9">Falcon 9</option>
-                <option value="Falcon Heavy">Falcon Heavy</option>
-            </select>
-            <select name="" class="option" id="option-launch-year">
-                <option value="" selected>Launch Year (all)</option>
-                <option value="2006">2006</option>
-                <option value="2007">2007</option>
-                <option value="2008">2008</option>
-                <option value="2009">2009</option>
-                <option value="2010">2010</option>
-                <option value="2011">2011</option>
-                <option value="2012">2012</option>
-                <option value="2013">2013</option>
-                <option value="2014">2014</option>
-                <option value="2015">2015</option>
-                <option value="2016">2016</option>
-                <option value="2017">2017</option>
-                <option value="2018">2018</option>
-                <option value="2019">2019</option>
-                <option value="2020">2020</option>
-                <option value="2021">2021</option>
-                <option value="2022">2022</option>
-            </select>
-            <select name="" class="option" id="option-success">
-                <option value="" selected>Success (all)</option>
-                <option value="true">Yes</option>
-                <option value="false">No</option>
-            </select>
-            <select name="" class="option" id="option-manned">
-                <option value="" selected>Crew (all)</option>
-                <option value="true">Yes</option>
-                <option value="false">No</option>
-            </select>
+    document.querySelector(".header-default").innerHTML = `${headerHTML}
             <button class="refresh">refresh</button>`;
-    //TODO: Add EventListeners and Set DOM Variables
     refreshVariables();
 };
 
@@ -324,8 +282,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 const refreshVariables = () => {
     const list = document.querySelector(".content");
-    //WARNING: .refresh not in DOM
-    // const btn = document.querySelector(".refresh");
     options = document.querySelectorAll(".option");
     optionLaunchYear = document.querySelector("#option-launch-year");
     optionRocketType = document.querySelector("#option-rocket-type");
@@ -347,8 +303,20 @@ const refreshVariables = () => {
     });
 };
 
-//FIXME: Navbar doesn't save previous values.
-//TODO: Write function which selects correct option of select
 const selectCorrect = () => {
-    console.log(optionLaunchYear.value);
+    optionsSelected = {
+        selectedMissionName: optionMissionName.value,
+        selectedRocketType: optionRocketType.value,
+        selectedLaunchYear: optionLaunchYear.value,
+        selectedMissionSucces: optionSuccess.value,
+        selectedMissionCrew: optionManned.value,
+    };
+};
+
+const activateSelection = () => {
+    optionMissionName.value = optionsSelected.selectedMissionName;
+    optionRocketType.value = optionsSelected.selectedRocketType;
+    optionLaunchYear.value = optionsSelected.selectedLaunchYear;
+    optionSuccess.value = optionsSelected.selectedMissionSucces;
+    optionManned.value = optionsSelected.selectedMissionCrew;
 };

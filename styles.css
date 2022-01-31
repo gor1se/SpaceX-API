@@ -151,6 +151,13 @@ body {
     margin: 0 auto;
 }
 
+@media (max-width: 1600px) {
+    .content {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+    }
+}
+
 @media (max-width: 1200px) {
     .content {
         grid-template-columns: repeat(2, 1fr);
@@ -168,11 +175,5 @@ body {
     }
     .header-mobile {
         display: block;
-    }
-}
-
-@media (min-width: 768px) {
-    .header-mobile.open {
-        display: none;
     }
 }
